@@ -1,0 +1,338 @@
+/** 字体 */
+@font-face {
+  font-family: AlimamaShuHeiTi-Bold;
+  font-style: normal;
+  src: url("@/assets/font/AlimamaShuHeiTi-Bold.otf");
+}
+
+.ali-font {
+  font-family: AlimamaShuHeiTi-Bold !important;
+}
+
+@font-face {
+  font-family: D-DIN-Bold;
+  src: url(@/assets/font/D-DIN-Bold.ttf);
+}
+
+/** ============================== 主题 */
+
+@white: #ffffff;
+@black: #000000;
+
+/** ============================== 默认主题 */
+@main-theme-primary: #0e63cd;
+// @main-theme-primary: #005eac;
+html[data-theme="main-theme"] {
+  --el-color-primary: @main-theme-primary;
+  .light-color-generater(9, 3);
+  .dark-color-generater(2, 2);
+  --el-text-color-primary: #25334e;
+  // --el-text-color-regular: #25334e;
+
+  // --el-text-color-primary 这是主文本颜色，通常用于主要的文本内容
+  // --el-text-color-regular 这是常规文本颜色，用于一般的文本内容
+  // --el-text-color-secondary 这是次要文本颜色，用于次要的文本内容，比如辅助信息或次级标题
+  // --el-text-color-placeholder 这是占位符文本颜色，用于表单输入框中的占位符文本
+  // --el-text-color-disabled 这是禁用状态的文本颜色，用于不可交互的元素上的文本
+}
+
+/** ============================== 测试主题 */
+@test-theme-primary: #788b59;
+html[data-theme="test-theme"] {
+  --el-color-primary: @test-theme-primary;
+  .light-color-generater(9, 3, @test-theme-primary);
+  .dark-color-generater(2, 2, @test-theme-primary);
+}
+
+// 样式覆盖
+:root {
+  // 基础文字大小
+  --el-font-size-base: 14px;
+  --el-font-size-medium: 16px;
+  --el-font-size-large: 18px;
+  // // label等字体颜色
+  // --el-text-color-regular: #25334e;
+  // 基础圆角
+  --el-border-radius-base: 8px;
+  // 多选框圆角
+  --el-border-radius-small: 4px;
+
+  // 填充颜色
+  --el-fill-color-lighter: #f8fafc;
+
+  // 按钮
+  .el-button {
+    border: unset;
+  }
+
+  // 弹出层
+  .el-popper {
+    --el-popper-border-radius: var(--el-border-radius-base);
+    border: unset;
+
+    // TODO 箭头阴影
+
+    // 不显示边框
+    .el-popper__arrow:before {
+      border: unset;
+    }
+
+    // 树形选择的弹出层
+    &.el-tree-select__popper {
+      overflow: hidden;
+    }
+
+    &.el-popover {
+      --el-popover-border-radius: var(--el-border-radius-base) !important;
+    }
+
+    &.el-picker__popper {
+      // 时间范围选择器
+      .el-date-range-picker {
+        // 时间范围选择器的body
+        .el-picker-panel__body-wrapper {
+          // 选择时间的弹窗
+          .el-time-panel {
+            border-radius: var(--el-border-radius-base);
+            .el-time-panel__footer {
+            }
+          }
+        }
+        // 时间范围选择器的footer
+        .el-picker-panel__footer {
+          border-bottom-left-radius: var(--el-border-radius-base);
+          border-bottom-right-radius: var(--el-border-radius-base);
+        }
+      }
+    }
+  }
+
+  // 查询栏
+  .query-bar {
+    // 让输入框等内容高度变矮一点，因为是在el-form-item添加的边框，内容高度过高会遮挡边框
+    --el-component-size: 30px;
+
+    // 非按钮区
+    .el-form-item:not(.query-btn-container) {
+      @apply w-360px inline-flex pl-20px pr-1px;
+      box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color))
+        inset;
+      border-radius: var(--el-border-radius-base);
+
+      .el-form-item__label {
+        @apply h-full font-bold flex-none flex justify-start p-0;
+      }
+
+      .el-form-item__content {
+        @apply flex-1;
+
+        > :first-child {
+          width: 100% !important;
+        }
+      }
+    }
+
+    // 按钮区
+    .query-btn-container {
+      margin-right: 0;
+    }
+
+    // 输入框
+    .el-input__wrapper {
+      box-shadow: unset;
+    }
+
+    // 选择框
+    .el-select__wrapper {
+      box-shadow: unset;
+      background-color: unset;
+
+      &.is-hovering {
+        box-shadow: unset;
+      }
+    }
+  }
+
+  // 表格
+  .el-table {
+    border: var(--el-border);
+    border-radius: var(--el-border-radius-base);
+    overflow: hidden;
+    // 表头颜色
+    --el-table-header-bg-color: var(--el-fill-color-lighter);
+
+    // TODO 表格有固定列时，滚动到最底部，发现固定列与常规列未对齐
+    .el-table__inner-wrapper {
+      &::before {
+        width: unset; // 将表格的下边线去掉（不然最下边很粗）
+      }
+      &::after {
+        width: unset; // 将表格的下边线去掉（不然最下边很粗）
+      }
+
+      tbody {
+        tr {
+          &:last-child {
+            td {
+              // border-bottom: unset; // 去掉最后一行的下边框（不然最下边很粗）
+            }
+          }
+        }
+      }
+    }
+
+    // 设置table为带的列表border
+    &.el-table--border {
+      &::before {
+        width: unset; // 去掉左边线
+      }
+      &::after {
+        width: unset; // 去掉右边线
+      }
+
+      // 表体
+      .el-table__body-wrapper {
+        tr {
+          td.el-table__cell:last-of-type {
+            border-right: unset; // 去掉右边线
+          }
+        }
+      }
+
+      // 表头
+      .el-table__header-wrapper {
+        thead tr:first-of-type th.el-table__cell:last-of-type {
+          border-right: unset; // 去掉右边线
+        }
+      }
+    }
+
+    .el-table__border-left-patch {
+      width: unset;
+      &::before {
+        width: unset; // 将表格的下边线去掉（不然最下边很粗）
+      }
+    }
+
+    // table下的文字按钮悬停色（之前悬停色和table行一样，不好区分）
+    .el-button.is-text:not(.is-disabled):hover {
+      background-color: var(--el-fill-color-blank);
+    }
+
+    .el-scrollbar__bar {
+    }
+  }
+
+  // 分页
+  .el-pagination.is-background {
+    li {
+      border-radius: var(--el-border-radius-base);
+      background-color: var(--el-fill-color-lighter);
+    }
+
+    .btn-prev {
+      background-color: unset;
+    }
+
+    .btn-next {
+      background-color: unset;
+    }
+  }
+
+  // dialog弹窗
+  .el-dialog {
+    --el-dialog-padding-primary: 20px;
+
+    // 弹窗footer
+    .dialog-footer,
+    .el-dialog__footer {
+      .el-button {
+        width: 90px !important;
+      }
+    }
+
+    // 全屏弹窗
+    &.is-fullscreen {
+      border-radius: unset;
+    }
+  }
+
+  // 数字输入框
+  .el-input-number {
+    span {
+      border: unset;
+      background-color: unset;
+
+      // 加减按钮
+      &.el-input-number__decrease,
+      &.el-input-number__increase {
+        color: #ffffff;
+
+        .el-icon {
+          @apply h-22px w-22px rounded-full flex justify-center items-center;
+          background-color: var(--el-color-primary);
+        }
+
+        &:hover {
+        }
+
+        // 加减按钮禁用（到达最小值时，‘减’会被禁用）
+        &.is-disabled {
+          color: var(--el-disabled-border-color);
+
+          .el-icon {
+            background-color: var(--el-color-primary-light-5);
+          }
+        }
+      }
+    }
+
+    // 整个数字输入框禁用
+    &.is-disabled {
+      span {
+        cursor: not-allowed !important;
+        color: var(--el-disabled-border-color) !important;
+        .el-icon {
+          background-color: var(--el-color-primary-light-5) !important;
+        }
+      }
+      .el-input__wrapper {
+        cursor: not-allowed !important;
+      }
+    }
+  }
+
+  // messageBox框
+  .el-message-box {
+    --el-messagebox-border-radius: var(--el-border-radius-base);
+  }
+}
+
+// 自定义公共样式
+:root {
+  .router-page {
+    @apply flex flex-col overflow-hidden;
+  }
+}
+
+/** 亮色生成 */
+.light-color-generater(@n, @i: 1, @use-color: @main-theme-primary)
+  when
+  (@i <=@n) {
+  // 以亮度来做的话，生成的颜色会更早的变为白色，所以用的混合色
+  // @color: lighten(@use-color, (@i - 1) * 10%);
+  @color: mix(@white, @use-color, @i * 10%);
+  --el-color-primary-light-@{i}: @color;
+  .light-color-generater(@n, @i + 1, @use-color);
+}
+
+/** 暗色生成 */
+.dark-color-generater(@n, @i: 1, @use-color: @main-theme-primary)
+  when
+  (@i <=@n) {
+  // 以亮度来做的话，生成的颜色会更早的变为白色，所以用的混合色
+  // @color: darken(@use-color, (@i - 1) * 10%);
+  @color: mix(@black, @use-color, @i * 10%);
+  --el-color-primary-dark-@{i}: @color;
+  .dark-color-generater(@n, @i + 1, @use-color);
+}

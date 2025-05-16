@@ -1,0 +1,17 @@
+// 可搜索下拉选择的hover指针设置为pointer
+.el-select__wrapper.is-filterable {
+  cursor: pointer !important;
+}
+.el-select__wrapper.is-filterable.is-disabled {
+  cursor: not-allowed !important;
+}
+
+// el-space的最后一个元素也会有右边距，需要去除
+.el-space .el-space__item:last-child {
+  margin-right: 0px !important;
+}
+
+// 去除菜单的右边框
+.el-menu {
+  border-right: none !important;
+}

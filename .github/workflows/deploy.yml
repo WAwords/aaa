@@ -1,0 +1,67 @@
+name: CI/CD Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: dist-production/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: dist
+
+      - name: Deploy to server - Backup and Create Directory
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 47.121.25.70
+          username: root
+          password: 123456HE!
+          script: |
+            # 检查目录是否存在，如果存在则备份
+            if [ -d ~/cme-docker/cme-docker/nginx/dist ]; then
+              mv ~/cme-docker/cme-docker/nginx/dist ~/cme-docker/cme-docker/nginx/dist_backup_$(date +%Y-%m-%d-%H-%M-%S)
+            fi
+            # 创建新目录
+            mkdir -p ~/cme-docker/cme-docker/nginx/dist
+
+      - name: Sync files to server
+        run:
+          rsync -avz -e "sshpass -p '123456HE!' ssh -o StrictHostKeyChecking=no"
+          ./dist/ root@47.121.25.70:~/cme-docker/cme-docker/nginx/dist
+        env:
+          GIT_SSH_COMMAND: ssh -o StrictHostKeyChecking=no
+        shell: bash
