@@ -13,7 +13,7 @@
           class="card-form"
           label-position="top"
         >
-          <el-form-item prop="username" label="账号">
+          <el-form-item prop="username" label="账号1">
             <el-input
               v-model.trim="form.username"
               placeholder="请输入账号"
