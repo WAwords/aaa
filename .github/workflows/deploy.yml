@@ -65,3 +65,12 @@ jobs:
         env:
           GIT_SSH_COMMAND: ssh -o StrictHostKeyChecking=no
         shell: bash
+
+      - name: Restart Nginx
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 47.121.25.70
+          username: root
+          password: 123456HE!
+          script: |
+            systemctl restart nginx

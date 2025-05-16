@@ -5,7 +5,7 @@
       <div class="card-img"></div>
       <div class="card-data">
         <img src="@/assets/img/logo/cme-mix.png" alt="" class="h-45px" />
-        <div class="welcome ali-font">欢迎登录</div>
+        <div class="welcome ali-font">欢迎登录1</div>
         <el-form
           :model="form"
           ref="formRef"
