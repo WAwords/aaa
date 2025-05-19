@@ -5,7 +5,7 @@
       <div class="card-img"></div>
       <div class="card-data">
         <img src="@/assets/img/logo/cme-mix.png" alt="" class="h-45px" />
-        <div class="welcome ali-font">欢迎登录1</div>
+        <div class="welcome ali-font">欢迎登录2</div>
         <el-form
           :model="form"
           ref="formRef"
@@ -13,7 +13,7 @@
           class="card-form"
           label-position="top"
         >
-          <el-form-item prop="username" label="账号1">
+          <el-form-item prop="username" label="账号2">
             <el-input
               v-model.trim="form.username"
               placeholder="请输入账号"

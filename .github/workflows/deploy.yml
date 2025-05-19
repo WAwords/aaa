@@ -73,4 +73,5 @@ jobs:
           username: root
           password: 123456HE!
           script: |
-            systemctl restart nginx
+            cd ~/cme-docker/cme-docker
+            docker-compose restart nginx
