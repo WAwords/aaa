@@ -63,6 +63,7 @@ export default defineConfig(({ mode }) => {
     },
     test: {
       browser: {
+        provider: 'playwright',
         enabled: true,
         name: "chromium", // 浏览器名称是必需的
         api: {
