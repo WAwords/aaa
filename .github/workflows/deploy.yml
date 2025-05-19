@@ -25,6 +25,9 @@ jobs:
         run: pnpm install
 
       - name: Build project
+        run: npm run test
+
+      - name: Build project
         run: npm run build
 
       - name: Upload build artifacts
