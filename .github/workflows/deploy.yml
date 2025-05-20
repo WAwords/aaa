@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    name: 构建
     runs-on: ubuntu-latest
 
     steps:
@@ -43,6 +44,7 @@ jobs:
           path: dist-production/dist
 
   deploy:
+    name: 部署
     needs: build
     runs-on: ubuntu-latest
 
